@@ -67,8 +67,6 @@ class SQLiteDatabase(Database):
                  log: Optional[logging.Logger] = None) -> None:
         super().__init__(url, db_args=db_args, upgrade_table=upgrade_table, log=log)
         self._path = urlparse(url).path
-        if self._path.startswith("/"):
-            self._path = self._path[1:]
         self._pool = asyncio.Queue(self._db_args.pop("min_size", 5))
         self._db_args.pop("max_size", None)
         self._stopped = False
